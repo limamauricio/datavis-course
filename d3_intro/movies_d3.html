@@ -94,25 +94,25 @@
 
     function render_genre(data, comparator) {
 
-        d3.select("#chart3").selectAll("div.h-bar")
+        d3.select("#bonusChart").selectAll("div.h-bar")
                 .data(data)
             .enter().append("div")
             .attr("class", "h-bar")
             .append("span");
         
-        d3.select("#chart3").selectAll("div.h-bar")
+        d3.select("#bonusChart").selectAll("div.h-bar")
                 .data(data)
             .attr("class", "h-bar")
             .style("background-color", "orange")
             .style("width", function (d) {
-                return ((d.Worldwide_Gross_M - d.Budget_M ) * 0.5) + "px";
+                return ( d.Value * 0.08) + "px";
             })
             .select("span")
                 .text(function (d) {
-                    return d.Film;
+                    return d.Genre;
                 });
          if(comparator)
-            d3.select("#chart3")
+            d3.select("#bonusChart")
                 .selectAll("div.h-bar") 
                 .sort(comparator);
     }
@@ -131,10 +131,28 @@
         return x - y;
     };
   
+
+    let compareGenre = function (a, b) {
+        return b.Value - a.Value;
+    };
     d3.json("data/movies.json").then(function(json){ 
         render_Worldwide_Gross_M(json, comparePorWorldwide_Gross_M);
         render_Budget_M(json, comparePorBudget_M);
         render_maior_lucro(json, compareLucro);
+
+        var dataItem = d3.nest().key(function(d){
+            return d.Genre; })
+            .rollup(function(leaves){
+            return d3.sum(leaves, function(d){
+            return d.Worldwide_Gross_M;
+            });
+        }).entries(json)
+            .map(function(d){
+                return { Genre: d.key, Value: d.value};
+        });
+        console.log(dataItem);
+        render_genre(dataItem, compareGenre);
+            
     });
 </script>
 </body>
