@@ -21,7 +21,7 @@
 
 ## Aula do dia 17/09/2018
 
-[scatterplot.html](d3_update/scatterplot.html)<br>
+[01_scatterplot.html](d3_update/01_scatterplot.html)<br>
 
 ---
 
