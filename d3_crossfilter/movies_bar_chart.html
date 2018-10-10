@@ -11,10 +11,17 @@
 
 </head>
 <body>
-      <h1> Valores bilheteria por ano</h1>
-      <div id="chart"></div>
-      <h1> Valores bilheteria por genero</h1>
-      <div id="chart2"></div>
+     
+      <div id="chart">
+         <h1> Valores bilheteria por ano</h1>
+
+      </div>
+      
+      <div id="chart2">
+        
+        <h1> Valores bilheteria por genero</h1>
+      </div>
+
     <script type="text/javascript">
         let bar_chart = dc.barChart('#chart');
         let bar_chart2 = dc.barChart('#chart2');
@@ -44,7 +51,7 @@
               .x(d3.scaleBand())
               .xUnits(dc.units.ordinal)
               .brushOn(false)
-              .xAxisLabel("year")
+              .xAxisLabel("Year")
               .yAxisLabel("Bilheteria Total")
               .group(Worldwide_Gross_M_By_Year);
 
